@@ -1,5 +1,7 @@
 const React = window.React;
 
+const RouterContext = React.createContext();
+
 class Router extends React.Component {
   constructor(props) {
     super(props);
@@ -27,16 +29,37 @@ class Router extends React.Component {
   }
 
   render() {
-    // routerMap 为 URL => View 映射关系配置
-    const { routerMap } = this.props;
-    const currentComponent = routerMap[location.pathname] || null;
-
-    return React.createElement(currentComponent, {
-      history: this.props.history,
-      location: this.state.location,
-      changeLocation: this.changeLocation,
-    });
+    return (
+      <RouterContext.Provider
+        value={{
+          history: this.props.history,
+          location: this.state.location,
+        }}
+      >
+        {this.props.children}
+      </RouterContext.Provider>
+    );
   }
 }
 
-window.tinyReactRouter = { Router };
+class Route extends React.Component {
+  render() {
+    return (
+      <RouterContext.Consumer>
+        {context => {
+          const { location } = context;
+          const { path, component } = this.props;
+          const componentProps = { ...context };
+          const isMatched = path === location.pathname;
+          const currentComponent = isMatched
+            ? React.createElement(component, componentProps)
+            : null;
+
+          return currentComponent;
+        }}
+      </RouterContext.Consumer>
+    );
+  }
+}
+
+window.tinyReactRouter = { Router, Route };

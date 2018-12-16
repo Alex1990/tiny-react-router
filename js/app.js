@@ -1,7 +1,7 @@
 const React = window.React;
 const ReactDOM = window.ReactDOM;
 const tinyHistory = window.tinyHistory;
-const { Router } = window.tinyReactRouter;
+const { Router, Route } = window.tinyReactRouter;
 
 // 首页
 
@@ -55,19 +55,14 @@ class About extends React.Component {
   }
 }
 
-// URL => View 映射关系配置
-const routerMap = {
-  '/': Home,
-  '/about': About,
-};
-
 class App extends React.Component {
   render() {
     return (
-      <Router
-        history={tinyHistory}
-        routerMap={routerMap}
-      />
+      <Router history={tinyHistory}>
+        <h1>A tiny react router</h1>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Router>
     );
   }
 }
