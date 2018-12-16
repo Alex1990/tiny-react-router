@@ -8,30 +8,18 @@ class Router extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { history } = this.props;
-    history.listen(this.handleLocationChange);
-  }
-
-  componentWillUnmount() {
-    const { history } = this.props;
-    history.unlisten(this.handleLocationChange);
-  }
-
-  getCurrentComponent() {
-    const { routerMap } = this.props;
-    return routerMap[location.pathname] || null;
-  }
-
-  handleLocationChange = () => {
+  changeLocation = () => {
     this.setState({ location: this.props.history.getLocation() });
   }
 
   render() {
-    const currentComponent = this.getCurrentComponent();
+    const { routerMap } = this.props;
+    const currentComponent = routerMap[location.pathname] || null;
+
     return React.createElement(currentComponent, {
       history: this.props.history,
       location: this.state.location,
+      changeLocation: this.changeLocation,
     });
   }
 }

@@ -1,6 +1,6 @@
 const React = window.React;
 const ReactDOM = window.ReactDOM;
-const TinyHistory = window.TinyHistory;
+const tinyHistory = window.tinyHistory;
 const { Router, Route } = window.tinyReactRouter;
 
 class Home extends React.Component {
@@ -13,7 +13,10 @@ class Home extends React.Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    this.props.history.push(this.linkRef.current.getAttribute('href'));
+    this.props.history.push(
+      this.linkRef.current.getAttribute('href'),
+      this.props.changeLocation(),
+    );
   }
 
   render() {
@@ -36,7 +39,7 @@ class About extends React.Component {
   }
 
   handleClick = () => {
-    this.props.history.push('/');
+    this.props.history.push('/', this.props.changeLocation());
   }
 
   render() {
@@ -57,16 +60,10 @@ const routerMap = {
 };
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.history = new TinyHistory();
-  }
-
   render() {
     return (
       <Router
-        history={this.history}
+        history={tinyHistory}
         routerMap={routerMap}
       />
     );
