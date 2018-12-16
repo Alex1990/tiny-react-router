@@ -7,15 +7,38 @@ function getLocation() {
   return { pathname };
 }
 
+// 观察者列表
+const listeners = [];
+
+// 添加一个观察者
+function add(listener) {
+  listeners.push(listener);
+}
+
+// 移除一个观察者
+function remove(listener) {
+  const index = listeners.indexOf(listener);
+  listeners.splice(index, 1);
+}
+
+// 通知观察者更新
+function notify() {
+  for (let i = 0; i < listeners.length; i++) {
+    listeners[i]();
+  }
+}
+
 /**
  * 更新 URL，并通知更新
  */
-function push(path, callback) {
+function push(path) {
   window.history.pushState(null, null, path);
-  if (callback) callback();
+  notify();
 }
 
 window.tinyHistory = {
   getLocation,
   push,
+  add,
+  remove,
 };

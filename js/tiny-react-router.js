@@ -9,6 +9,14 @@ class Router extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.history.add(this.changeLocation);
+  }
+
+  componentWillUnmount() {
+    this.props.history.remove(this.changeLocation);
+  }
+
   changeLocation = () => {
     // 更新 React State
     this.setState({ location: this.props.history.getLocation() });

@@ -15,10 +15,7 @@ class Home extends React.Component {
   handleClick = (e) => {
     e.preventDefault();
     // 更新 URL
-    this.props.history.push(
-      this.linkRef.current.getAttribute('href'),
-      this.props.changeLocation(),
-    );
+    this.props.history.push(this.linkRef.current.getAttribute('href'));
   }
 
   render() {
@@ -43,7 +40,7 @@ class About extends React.Component {
 
   handleClick = () => {
     // 更新 URL
-    this.props.history.push('/', this.props.changeLocation());
+    this.props.history.push('/');
   }
 
   render() {
