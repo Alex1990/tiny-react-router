@@ -1,0 +1,15 @@
+{
+  "name": "tiny-react-router",
+  "version": "0.1.0",
+  "description": "A tiny react router for learning the router core concepts",
+  "main": "tiny-react-router.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Alex Chao",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.16.4"
+  }
+}
