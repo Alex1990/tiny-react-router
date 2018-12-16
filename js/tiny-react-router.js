@@ -10,11 +10,15 @@ class Router extends React.Component {
   }
 
   componentDidMount() {
-    this.props.history.add(this.changeLocation);
+    const { history } = this.props;
+    history.add(this.changeLocation);
+    history.bindPopState();
   }
 
   componentWillUnmount() {
-    this.props.history.remove(this.changeLocation);
+    const { history } = this.props;
+    history.remove(this.changeLocation);
+    history.unbindPopState();
   }
 
   changeLocation = () => {

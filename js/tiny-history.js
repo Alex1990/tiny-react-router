@@ -28,6 +28,14 @@ function notify() {
   }
 }
 
+function bindPopState() {
+  window.addEventListener('popstate', notify);
+}
+
+function unbindPopState() {
+  window.removeEventListener('popstate', notify);
+}
+
 /**
  * 更新 URL，并通知更新
  */
@@ -41,4 +49,6 @@ window.tinyHistory = {
   push,
   add,
   remove,
+  bindPopState,
+  unbindPopState,
 };
