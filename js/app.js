@@ -1,18 +1,20 @@
 const React = window.React;
 const ReactDOM = window.ReactDOM;
 const tinyHistory = window.tinyHistory;
-const { Router, Route } = window.tinyReactRouter;
+const { Router } = window.tinyReactRouter;
+
+// 首页
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
     this.linkRef = React.createRef();
     console.log('home page location', props.location);
   }
 
   handleClick = (e) => {
     e.preventDefault();
+    // 更新 URL
     this.props.history.push(
       this.linkRef.current.getAttribute('href'),
       this.props.changeLocation(),
@@ -31,14 +33,16 @@ class Home extends React.Component {
   }
 }
 
+// 关于页
+
 class About extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
     console.log('about page location', props.location);
   }
 
   handleClick = () => {
+    // 更新 URL
     this.props.history.push('/', this.props.changeLocation());
   }
 
@@ -54,6 +58,7 @@ class About extends React.Component {
   }
 }
 
+// URL => View 映射关系配置
 const routerMap = {
   '/': Home,
   '/about': About,
